@@ -11,3 +11,19 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Product{
+  id String @id @default(cuid())
+  name String
+  sku String @unique
+  price Decimal @db.Decimal(10,2)
+  quantity Int @default(0)
+  lowStockThreshold Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+
+  @@index([userId, name])
+  @@index([createdAt])
+}
